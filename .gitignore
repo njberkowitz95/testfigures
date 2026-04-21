@@ -1,0 +1,6 @@
+data/tl_2023_us_county/
+data/tl_2023_us_state/
+data/*.zip
+__pycache__/
+*.pyc
+uploads/

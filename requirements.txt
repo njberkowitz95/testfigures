@@ -1,0 +1,5 @@
+geopandas>=1.0
+matplotlib>=3.8
+matplotlib-scalebar>=0.9
+pyproj>=3.6
+shapely>=2.0
