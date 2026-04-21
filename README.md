@@ -1,69 +1,90 @@
 # testfigures
 
 Reproducible, publication-quality figures for the Major Land Resource Area
-(MLRA) 106 — Nebraska portion — CSP3 LTAR study.
+(MLRA) 106 — Nebraska portion — CSP3 / US-Ne3 LTAR rainfed maize–soybean
+study.
 
-## Figure 1
+## Figure 1 (integrated, three-panel)
 
 ![Figure 1](figures/Figure1.png)
 
+Figure 1 is an integrated, three-panel figure:
+
+* **Panel A — Reference map.** Latitudinal subregions of the study
+  domain (Northern / Central / Southern) are **strictly clipped to the
+  authoritative NRCS MLRA 106 polygon** (v5.2, 2022), not to county
+  outlines, so the thematic fills correspond unambiguously to MLRA
+  extent. Nebraska counties inside MLRA 106 are labelled in italic; the
+  MLRA boundary is drawn as a bold black neatline. The CSP3 / US-Ne3
+  LTAR rainfed calibration site (Mead, NE; 41.17 °N, 96.48 °W) is
+  marked, and a statewide locator inset anchors the map within
+  Nebraska. Projection: NAD83 / Conus Albers Equal Area (EPSG 5070).
+* **Panel B — Empirical NCCPI v3 distributions.** Horizontal box-and-
+  whisker plot of *major-component* NCCPI v3 overall index values for
+  the eight dominant MLRA 106 soil series (Marshall, Monona, Crete,
+  Wymore, Butler, Fillmore, Judson, Nodaway), pulled live from the
+  USDA-NRCS Soil Data Access (SDA) tabular service and restricted to
+  the 13 constituent-county Soil Survey Areas (SSAs) of MLRA 106.
+  Boxes are coloured by drainage-class group (A = well-drained loess
+  uplands, B = moderately well-drained uplands/footslopes, C =
+  somewhat poorly drained depressions, D = alluvial footslope /
+  floodplain). Individual major-component records are overlaid as
+  jitter points for transparency.
+* **Panel C — Schematic toposequence.** Stylised hill-slope profile of
+  the MLRA 106 loess-mantled till plain. Landscape positions (summit
+  ridgetop → floodplain, left to right) are annotated with the series
+  typical of each position and the **empirical median NCCPI v3 value
+  for each series** taken from Panel B. Catena relationships follow
+  Lewis, Pollard & Rhoades (1967) and USDA-NRCS (2022).
+
 ### Academic caption
 
-> **Figure 1.** Spatial context of the study domain, Major Land Resource
-> Area (MLRA) 106, *Nebraska and Kansas Loess–Drift Hills* (Land Resource
-> Region M), restricted to the Nebraska portion. The domain is delineated
-> using the NRCS *Major Land Resource Areas Geographic Database*
-> v5.2 (USDA–NRCS, 2022) and clipped to the Nebraska state polygon from
-> TIGER/Line 2023 (U.S. Census Bureau, 2023). County geometries are
-> likewise drawn from TIGER/Line 2023. For the purpose of trend
-> stratification, the domain is partitioned into three equal-latitude
-> subregions (Northern, Central, Southern), whose boundaries are shown as
-> dashed lines. The dominant soil associations within each subregion are
-> derived from SSURGO dominant-component map units (Soil Survey Staff,
-> 2020): *Fillmore association* (Mollic Albaqualfs, closed-depression
-> loess uplands; NCCPI ≈ 0.45–0.65) in the Northern subregion,
-> *Judson association* (Cumulic Hapludolls, colluvial footslopes on loess;
-> NCCPI ≈ 0.60–0.75) in the Central subregion, and *Nodaway association*
-> (Mollic Udifluvents on Holocene alluvium of Missouri-River tributaries;
-> NCCPI ≈ 0.75–0.85) in the Southern subregion, where NCCPI values
-> summarise the National Commodity Crop Productivity Index v3.0 (USDA–
-> NRCS, 2020). The CSP3 LTAR calibration site (USDA–ARS Platte River–High
-> Plains Aquifer LTAR; Mead, Nebraska, 41.17 °N, 96.48 °W) is indicated
-> by the red star. All geospatial operations (area calculation, latitude
-> banding, clipping, and the printed scale bar) are performed in the
-> NAD83 / Conus Albers Equal Area projection (EPSG 5070). The inset in
-> the upper-left locates the study area within the contiguous United
-> States; the red polygon delineates MLRA 106 in its entirety, with the
-> darker shade denoting the Nebraska portion used in this study.
+> **Figure 1.** Major Land Resource Area (MLRA) 106 — Nebraska portion:
+> geographic reference and empirical soil productivity for the rainfed
+> maize–soybean domain. (A) NRCS MLRA 106 polygon (v5.2, 2022), clipped
+> to Nebraska, partitioned into three equal-latitude subregions
+> (Northern / Central / Southern) and annotated with Nebraska counties
+> (italic) and the CSP3 / US-Ne3 LTAR rainfed calibration site at Mead,
+> NE. Projection: NAD83 / Conus Albers Equal Area (EPSG 5070). (B)
+> Distribution of NCCPI v3 overall index values (0–1) for the eight
+> dominant soil series of MLRA 106, restricted to major components of
+> the 13 constituent-county SSAs (Saunders, Cass, Lancaster, Otoe,
+> Johnson, Nemaha, Richardson, Pawnee, Gage, Jefferson, Saline, Seward,
+> Butler), queried from the USDA-NRCS Soil Data Access service; each
+> box is coloured by drainage-class group and annotated with the
+> sample size *n* and total map-unit area *A*. (C) Schematic
+> toposequence of the MLRA 106 loess-mantled till plain, showing the
+> five dominant landscape positions (summit ridgetop → interfluve
+> backslope → closed depression → footslope / drainageway → floodplain)
+> and the empirical median NCCPI v3 value for the series typical of
+> each position; catena relationships follow Lewis, Pollard & Rhoades
+> (1967) and USDA-NRCS (2022).
 
 ### Reproduce
 
 ```bash
 pip install -r requirements.txt
-# Source data (places into ./data):
-bash scripts/fetch_data.sh
-# Render figure:
-python3 scripts/figure1.py
+bash scripts/fetch_data.sh          # MLRA 106 polygon + TIGER/Line 2023
+python3 scripts/fetch_sda_nccpi.py  # SDA query (live, ~30 KB)
+python3 scripts/figure1.py          # renders PNG (600 dpi) + PDF
 ```
-
-The script writes both `figures/Figure1.png` (600 dpi) and
-`figures/Figure1.pdf` (vector) for submission-grade output.
 
 ### Layers and sources
 
 | Layer | Source | Citation |
 | --- | --- | --- |
-| MLRA 106 polygon | NRCS *Major Land Resource Areas* v5.2 FeatureServer | USDA–NRCS (2022) |
-| County boundaries | U.S. Census Bureau TIGER/Line 2023 (`tl_2023_us_county`) | U.S. Census Bureau (2023) |
-| State boundaries | U.S. Census Bureau TIGER/Line 2023 (`tl_2023_us_state`) | U.S. Census Bureau (2023) |
-| Dominant soil associations | SSURGO dominant-component map units | Soil Survey Staff (2020) |
-| CSP3 LTAR site | ENREEC, University of Nebraska | Suyker & Verma (2012) |
+| MLRA 106 polygon | NRCS *Major Land Resource Areas* v5.2 FeatureServer | USDA-NRCS (2022) |
+| County boundaries | U.S. Census TIGER/Line 2023 (`tl_2023_us_county`) | U.S. Census (2023) |
+| State boundaries | U.S. Census TIGER/Line 2023 (`tl_2023_us_state`) | U.S. Census (2023) |
+| NCCPI v3 overall | USDA-NRCS Soil Data Access (SDA), `cointerp` table | Soil Survey Staff (accessed 2026) |
+| CSP3 / US-Ne3 site | UNL-ENREEC rainfed CSP rotation, Mead, NE | Suyker & Verma (2012) |
 
 ### Cartographic specification
 
 * Projection: NAD83 / Conus Albers Equal Area (EPSG 5070)
-* Graticule: 1° meridians, 0.5° parallels
-* Scale bar: 50 km, computed in projected metres
-* Typography: serif, 8–13 pt; italic labels for geographic features
-* Palette: earth-toned, colour-blind-safe, with monotone value ramp
-  aligned to the NCCPI gradient (lighter = lower, darker = higher)
+* Graticule: 0.5° spacing on both axes
+* Scale bar: 40 km, computed in projected metres
+* Typography: serif, 7–14 pt; italic labels for geographic features
+* Palette: monotone value ramp for latitudinal subregions (low → high
+  NCCPI, light → dark), and a four-colour qualitative palette for
+  drainage-class groups (Panel B / C)
